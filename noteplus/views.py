@@ -43,13 +43,14 @@ def login_view(request):
 def register_view(request):
     if request.method == "POST":
         username = request.POST['username']
+        username = request.POST['email']
         password = request.POST['password']
 
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username already taken')
             return render(request, 'register.html')
 
-        user = User.objects.create_user(username, '', password)
+        user = User.objects.create_user(username, email, password)
         login(request, user)
         messages.success(request, 'User created and logged in')
         return redirect('index')
