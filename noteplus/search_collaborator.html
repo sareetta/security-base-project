@@ -12,7 +12,6 @@
     <thead>
         <tr>
             <th>Username</th>
-            <th>Email</th>
             <th>Password</th>
             <th>Action</th>
         </tr>
@@ -21,7 +20,6 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
                 <td>{{ user.password }}</td>
                 <td>
                     <form action="{% url 'add_collaborator' user_id=user.id %}" method="post">
