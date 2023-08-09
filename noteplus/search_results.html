@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Search Results</h1>
+
+{% if not notes %}
+    <p>No notes found for "{{ search_term }}".</p>
+{% endif %}
+
+{% for note in notes %}
+<div class="note">
+    <h2>{{ note.title }}</h2>
+    <p>{{ note.content }}</p>
+    <p>{{ note.created_at }}</p>
+    <form action="{% url 'delete_note' note.id %}" method="get">
+        <input type="submit" value="Delete">
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

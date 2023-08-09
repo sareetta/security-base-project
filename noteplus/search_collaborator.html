@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Search Collaborators</h1>
+
+<form action="{% url 'search_collaborator' %}" method="get">
+    <input type="text" name="username" placeholder="Search by username">
+    <input type="submit" value="Search">
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <form action="{% url 'add_collaborator' user_id=user.id %}" method="post">
+                        {% csrf_token %}
+                        <textarea name="note_content" placeholder="Enter note content here"></textarea>
+                        <input type="submit" value="Add">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

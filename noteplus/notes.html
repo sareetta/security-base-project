@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Notes</h1>
+
+<!-- Search form -->
+<form action="{% url 'search_notes' %}" method="get">
+    <input type="text" name="search_term" placeholder="Search notes">
+    <input type="submit" value="Search">
+</form>
+
+{% for note in notes %}
+<div class="note">
+    <h2>{{ note.title }}</h2>
+    <p>{{ note.content }}</p>
+    <p>{{ note.created_at }}</p>
+    
+    <!-- Delete Button-->
+    <form action="{% url 'delete_note' note.id %}" method="get">
+        <input type="submit" value="Delete">
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

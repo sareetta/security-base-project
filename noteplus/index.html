@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to NotePlus!</h1>
+{% if user.is_authenticated %}
+  <p>Hi {{ user.username }}! You can <a href="{% url 'add_note' %}">add a new note</a>, <a href="{% url 'notes' %}">view your notes</a> or <a href="{% url 'search_collaborator' %}">search for a collaborator</a>.</p>
+{% else %}
+  <p>You are not logged in. <a href="/">Log in</a> to start adding notes.</p>
+{% endif %}
+{% endblock %}
