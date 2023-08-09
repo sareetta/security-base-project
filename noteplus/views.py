@@ -43,14 +43,13 @@ def login_view(request):
 def register_view(request):
     if request.method == "POST":
         username = request.POST['username']
-        username = request.POST['email']
         password = request.POST['password']
 
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username already taken')
             return render(request, 'register.html')
 
-        user = User.objects.create_user(username, email, password)
+        user = User.objects.create_user(username, password)
         login(request, user)
         messages.success(request, 'User created and logged in')
         return redirect('index')
@@ -86,7 +85,7 @@ def search_collaborator(request):
         users = User.objects.values() if search_term == "" else User.objects.filter(username__icontains=search_term).values()
 
         # FIX: To avoid exposing sensitive user information, explicitly select only the safe fields:
-        #users = User.objects.values('username', 'email') if search_term == "" else User.objects.filter(username__icontains=search_term).values('username', 'email')
+        #users = User.objects.values('username') if search_term == "" else User.objects.filter(username__icontains=search_term).values('username')
 
         return render(request, 'search_collaborator.html', {'users': users})
 
